@@ -1,6 +1,7 @@
 package com.flippey.myplay.utils;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Process;
@@ -44,6 +45,11 @@ public class UiUtil {
     public static int getColor(int id) {
         return getContext().getResources().getColor(id);
     }
+
+    //根据id获取颜色状态选择器
+    public static ColorStateList getColorStateList(int id) {
+        return getContext().getResources().getColorStateList(id);
+    }
     //获取尺寸,直接返回具体的像素值
     public static int getDimen(int id) {
         return getContext().getResources().getDimensionPixelSize(id);
@@ -84,4 +90,6 @@ public class UiUtil {
             getHandler().post(r);
         }
     }
+
+
 }
