@@ -55,13 +55,13 @@ public class LoadingPage extends FrameLayout{
             mEmptyPage = UiUtil.inflate(R.layout.page_empty);
             addView(mEmptyPage);
         }
-
         showRightPage();
     }
     //根据当前状态,决定要显示的布局
     private void showRightPage() {
-        if (mCurrentState == STATE_LOAD_UNDO || mCurrentState == STATE_LOAD_LOADING) {
-
-        }
+        mLoadingPage.setVisibility((mCurrentState == STATE_LOAD_UNDO || mCurrentState ==
+                STATE_LOAD_LOADING) ? VISIBLE : GONE);
+        mErrorPage.setVisibility((mCurrentState == STATE_LOAD_ERROR) ? VISIBLE : GONE);
+        mEmptyPage.setVisibility((mCurrentState == STATE_LOAD_EMPTY) ? VISIBLE : GONE);
     }
 }
