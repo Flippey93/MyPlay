@@ -1,10 +1,13 @@
 package com.flippey.myplay.activity;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.flippey.myplay.R;
 import com.flippey.myplay.fragment.BaseFragment;
@@ -12,8 +15,21 @@ import com.flippey.myplay.fragment.FragmentFactory;
 import com.flippey.myplay.utils.UiUtil;
 import com.flippey.myplay.view.PagerTab;
 
+import net.lucode.hackware.magicindicator.MagicIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles
+        .ColorTransitionPagerTitleView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends BaseActivity {
 
+    public  String[] mTabNames;
     private PagerTab mPagerTab;
     private ViewPager mViewPager;
     private MainAdapter mAdapter;
@@ -26,18 +42,66 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        mPagerTab = (PagerTab) findViewById(R.id.pager_tab);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-
         mAdapter = new MainAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
-        //将指针和viwepager绑定在一起
-        mPagerTab.setViewPager(mViewPager);
+        final MagicIndicator magic_indicator1 = (MagicIndicator) findViewById(R.id.magic_indicator);
+        final CommonNavigator commonNavigator1 = new CommonNavigator(this);
+        commonNavigator1.setFollowTouch(false);
+        commonNavigator1.setAdapter(new CommonNavigatorAdapter() {
+            @Override
+            public int getCount() {
+                return mTabNames == null ? 0 : mTabNames.length;
+            }
+            @Override
+            public IPagerTitleView getItemView(Context context, final int index) {
+                ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
+                colorTransitionPagerTitleView.setText(mTabNames[index]);
+                colorTransitionPagerTitleView.setNormalColor(Color.GRAY);
+                colorTransitionPagerTitleView.setSelectedColor(Color.BLACK);
+                colorTransitionPagerTitleView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mViewPager.setCurrentItem(index);
+                    }
+                });
+                return colorTransitionPagerTitleView;
+            }
+            @Override
+            public IPagerIndicator getIndicator(Context context) {
+                LinePagerIndicator indicator = new LinePagerIndicator(context);
+                indicator.setWrapContentMode(true);
+                List<String> colorList = new ArrayList<String>();
+                colorList.add("#ff4a42");
+                colorList.add("#fcde64");
+                colorList.add("#73e8f4");
+                colorList.add("#76b0ff");
+                colorList.add("#c683fe");
+                indicator.setColorList(colorList);
+                return indicator;
+            }
+        });
+        magic_indicator1.setNavigator(commonNavigator1);
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                magic_indicator1.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+            @Override
+            public void onPageSelected(int position) {
+                magic_indicator1.onPageSelected(position);
 
+            }
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                magic_indicator1.onPageScrollStateChanged(state);
+            }
+        });
+        mViewPager.setCurrentItem(1);
     }
+
     //viewpager的页面是fragment的话就用fragmentpageradapter
     class MainAdapter extends FragmentPagerAdapter {
-        private final String[] mTabNames;
         public MainAdapter(FragmentManager fm) {
             super(fm);
             //加载页面标题数组

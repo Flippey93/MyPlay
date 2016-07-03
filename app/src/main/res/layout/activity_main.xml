@@ -6,16 +6,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
-    <com.flippey.myplay.view.PagerTab
+    <!--<com.flippey.myplay.view.PagerTab
         android:id="@+id/pager_tab"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:background="@drawable/bg_tab">
-    </com.flippey.myplay.view.PagerTab>
+    </com.flippey.myplay.view.PagerTab>-->
+
+    <net.lucode.hackware.magicindicator.MagicIndicator
+        android:id="@+id/magic_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:background="@drawable/bg_tab" />
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        >
     </android.support.v4.view.ViewPager>
 </LinearLayout>
