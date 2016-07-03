@@ -23,6 +23,8 @@ public class LoadingPage extends FrameLayout{
 
     private int mCurrentState = STATE_LOAD_UNDO;  //当前状态
     private View mLoadingPage;
+    private View mErrorPage;
+    private View mEmptyPage;
 
     public LoadingPage(Context context) {
         this(context,null);
@@ -42,6 +44,24 @@ public class LoadingPage extends FrameLayout{
         if (mLoadingPage == null) {
             mLoadingPage = UiUtil.inflate(R.layout.page_loading);
             addView(mLoadingPage);
+        }
+        //初始化加载失败布局
+        if (mErrorPage == null) {
+            mErrorPage = UiUtil.inflate(R.layout.page_error);
+            addView(mErrorPage);
+        }
+        //初始化加载无数据布局
+        if (mEmptyPage == null) {
+            mEmptyPage = UiUtil.inflate(R.layout.page_empty);
+            addView(mEmptyPage);
+        }
+
+        showRightPage();
+    }
+    //根据当前状态,决定要显示的布局
+    private void showRightPage() {
+        if (mCurrentState == STATE_LOAD_UNDO || mCurrentState == STATE_LOAD_LOADING) {
+
         }
     }
 }
