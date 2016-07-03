@@ -86,11 +86,13 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 magic_indicator1.onPageScrolled(position, positionOffset, positionOffsetPixels);
+
             }
             @Override
             public void onPageSelected(int position) {
                 magic_indicator1.onPageSelected(position);
-
+                BaseFragment fragment = FragmentFactory.createFragment(position);
+                fragment.loadData();
             }
             @Override
             public void onPageScrollStateChanged(int state) {

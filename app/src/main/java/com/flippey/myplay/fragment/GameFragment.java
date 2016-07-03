@@ -17,6 +17,6 @@ public class GameFragment extends BaseFragment {
 
     @Override
     public LoadingPage.ResultState initData() {
-        return null;
+        return LoadingPage.ResultState.STATE_EMPTY;
     }
 }

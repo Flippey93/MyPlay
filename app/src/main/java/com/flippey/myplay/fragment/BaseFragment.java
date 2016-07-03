@@ -44,4 +44,10 @@ public abstract class BaseFragment extends Fragment {
     //初始化网络加载数据,必须由子类实现
     public abstract LoadingPage.ResultState initData();
 
+    //开始加载数据
+    public void loadData() {
+        if (mLoadingPage != null) {
+            mLoadingPage.loadData();
+        }
+    }
 }
