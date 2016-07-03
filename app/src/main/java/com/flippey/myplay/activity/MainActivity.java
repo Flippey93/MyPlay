@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
                 magic_indicator1.onPageScrollStateChanged(state);
             }
         });
-        mViewPager.setCurrentItem(1);
+        mViewPager.setCurrentItem(0);
     }
 
     //viewpager的页面是fragment的话就用fragmentpageradapter
