@@ -2,7 +2,6 @@ package com.flippey.myplay.fragment;
 
 import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.flippey.myplay.adapter.MyBaseAdapter;
 import com.flippey.myplay.holder.BaseHolder;
@@ -40,6 +39,11 @@ public class HomeFragment extends BaseFragment {
     }
 
     class HomeAdapter extends MyBaseAdapter<String> {
+        //子类重写hasmore方法,如果没有更多数据,是下拉刷新布局不显示
+        @Override
+        public boolean hasMore() {
+            return false;
+        }
 
         public HomeAdapter(ArrayList<String> data) {
             super(data);
@@ -71,8 +75,8 @@ public class HomeFragment extends BaseFragment {
         }*/
     }
 
-    static class ViewHolder {
+   /* static class ViewHolder {
         public TextView tv;
-    }
+    }*/
 
 }

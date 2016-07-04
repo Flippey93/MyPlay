@@ -27,4 +27,5 @@ public class HomeHolder extends BaseHolder<String>{
     public void refreshView(String data) {
         mTvContent.setText(data);
     }
+
 }
